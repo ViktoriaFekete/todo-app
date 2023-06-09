@@ -1,9 +1,5 @@
 import ToDoListItem from "../ToDoListItem/ToDoListItem.tsx";
 
-interface ToDoListProps {
-    title: string;
-}
-
 const items = [
     {
         "deadline": "2024-04-25T07:27:18.911Z",
@@ -41,12 +37,17 @@ const items = [
         "id": "5"
     }
 ]
-function ToDoList(props: ToDoListProps): JSX.Element {
+function ToDoList(): JSX.Element {
+
+    function addItem(){
+        console.log("Add item");
+        // ID.showModal()
+    }
+
     return (
         <div>
-            <h1 className="text-left text-white">{props.title}</h1>
-            <input type="text" placeholder="Search" className="input input-bordered input-secondary bg-transparent w-full max-w-xs float-left my-5" />
-            <button className="btn btn-neutral float-right my-5">Filter</button>
+            <input type="text" placeholder="Search" className="input input-bordered input-secondary bg-transparent w-full max-w-xs float-left my-5 rounded-full" />
+            <button className="btn btn-neutral float-right my-5 rounded-full"><span className="material-symbols-outlined">tune</span></button>
             <ul className="list-none text-left">
                 {items.map((item, index) => {
                     return (
@@ -59,7 +60,9 @@ function ToDoList(props: ToDoListProps): JSX.Element {
                         ></ToDoListItem>)
                 })}
             </ul>
-            <button className="btn btn-outline btn-secondary rounded-full float-left">+ Add item</button>
+            <button className="btn btn-outline btn-secondary rounded-full float-left"
+                onClick={addItem}
+            >+ Add item</button>
 
         </div>
     );

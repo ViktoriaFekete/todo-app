@@ -9,12 +9,13 @@ export default {
       themes: [
           {
               mytheme: {
-                  "primary": "#570df8",
-                  "secondary": "#f000b8",
+                  "primary": "#100e10",
+                  "secondary": "rgba(240,0,184,0.84)",
+                  // "secondary": "#268db9",
                   "active": "#181818",
                   "accent": "#1dcdbc",
                   "neutral": "#000000",
-                  "base-100": "rgba(255,255,255,0.58)",
+                  "base-100": "rgba(243,243,243,0.58)",
                   "info": "#3abff8",
                   "success": "#36d399",
                   "warning": "#fbbd23",
