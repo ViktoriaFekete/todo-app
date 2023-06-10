@@ -1,5 +1,6 @@
 import './App.css'
 import { ToDoList } from './components/ToDoList'
+import { AllToDoLists } from './components/AllToDoLists'
 
 import {Navbar} from "./components/Navbar";
 import { Routes, Route } from 'react-router-dom'
@@ -7,10 +8,11 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
 
   return (
-    <>
-        <Navbar title={"List A"}/>
+    <div>
+        <Navbar title={"What to do?"}/>
         <Routes>
-           <Route path="/" element={<ToDoList/>}/>
+           <Route path="/list/:listId" element={<ToDoList/>}/>
+            <Route path="/" element={<AllToDoLists/>}/>
 
         </Routes>
 
@@ -24,7 +26,7 @@ function App() {
       {/*    Check availability*/}
       {/*</button>*/}
 
-    </>
+    </div>
   )
 }
 

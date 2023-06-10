@@ -1,4 +1,5 @@
 import ToDoListItem from "../ToDoListItem/ToDoListItem.tsx";
+import {useParams} from "react-router-dom";
 
 const items = [
     {
@@ -38,6 +39,8 @@ const items = [
     }
 ]
 function ToDoList(): JSX.Element {
+    const listId: string | undefined = useParams().listId;
+    console.log("open list ", listId);
 
     function addItem(){
         console.log("Add item");
