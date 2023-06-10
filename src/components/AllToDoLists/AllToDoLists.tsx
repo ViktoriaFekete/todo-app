@@ -10,11 +10,9 @@ function AllToDoLists() {
 
     useToDoListData();
     const allLists: ToDoListData[] = useSelector((state: RootState) => state.ToDoListData);
-    console.log("tuu", allLists);
 
     function addList(){
-        console.log("Add list");
-        const newTodo = { title: "My new task"};
+        const newTodo = { title: "My new list"};
         dispatch(addTodo(newTodo));
         createToDoList(newTodo);
         // ID.showModal()
@@ -24,9 +22,9 @@ function AllToDoLists() {
         <>
             <ul className="w-full">
                 <p>daco</p>
-                {allLists.map((list, index) => {
+                {allLists.map((list) => {
                     return (
-                        <li key={index}>
+                        <li key={list.id}>
                             <div className="flex w-full py-5 bg-base-100 border text-slate-600 text-sm leading-6 font-medium py-2 px-4 my-3 rounded-lg">
                                 <Link to={`list/${list.id}`} className="text-slate-600  hover:text-secondary">List: {list.title}</Link>
                             </div>

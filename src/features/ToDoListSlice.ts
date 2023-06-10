@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { ToDoListData } from '../types'
 
-// Define the initial state using that type
 const initialState: ToDoListData[] = [{
     id: 0,
     title: 'Untitled',

@@ -31,6 +31,7 @@ export const createToDoList = async (todoList: object) => {
     }
 }
 
+// TODO: change string to number for todolistid
 export const deleteToDoList = async (todoListId: string) => {
     try {
         const response = await axios.delete(buildToDoListsUrl(todoListId).toString());
@@ -41,15 +42,7 @@ export const deleteToDoList = async (todoListId: string) => {
     }
 }
 
-export const getFilteredItems = async (todoListId: string, filter: string) => {
-    try {
-        const response = await axios.get(buildToDoItemUrl(todoListId, filter).toString());
-        return response.data;
-    }
-    catch (error) {
-        console.log(error);
-    }
-}
+
 
 function buildToDoListsUrl(param?: string): URL {
     const url: URL = new URL("https://" + PROJECT_TOKEN + ".mockapi.io/api/v1/todolists");
@@ -59,15 +52,6 @@ function buildToDoListsUrl(param?: string): URL {
     return url;
 }
 
-function buildToDoItemUrl(param?: string, filter?:string): URL {
-    const url: URL = new URL("https://" + PROJECT_TOKEN + ".mockapi.io/api/v1/todoitem");
-    if (param) {
-        url.pathname += "/" + param;
-    }
-    if (filter) {
-        url.searchParams.append("filter", filter);
-    }
-    return url;
-}
+
 
 

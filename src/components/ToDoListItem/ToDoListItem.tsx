@@ -1,31 +1,35 @@
 import React from 'react';
+import {removeTodoItem} from "../../features/ToDoItemsSlice.ts";
+import {deleteToDoItem} from "../../api/useToDoListItemsData.ts";
+import {useDispatch} from "react-redux";
+import {ToDoListItemData} from "../../types.ts";
 
-interface ToDoListItemProps {
-    taskName: string;
-    isCompleted: boolean;
-    index: number;
-    deadline: string;
-    description: string;
-}
 
-function ToDoListItem(props: ToDoListItemProps) {
-    const ddl = new Date(props.deadline).toLocaleDateString();
-    const [isCompleted, setIsCompleted] = React.useState(props.isCompleted);
+function ToDoListItem(props: ToDoListItemData ) {
+
+    const item: ToDoListItemData = props;
+    const dispatch = useDispatch();
+
+    const ddl = new Date(item.deadline).toLocaleDateString();
+    const [isCompleted, setIsCompleted] = React.useState(item.completed);
+
 
     function handleEdit(){
-        console.log("Edit item " + props.index);
+        console.log("Edit item " + item.id);
     }
 
     function handleDelete(){
-        console.log("Delete item " + props.index);
+        console.log("Delete item " + item.id);
+        dispatch(removeTodoItem(item.id));
+        deleteToDoItem(item.id);
     }
 
     function handleCheckboxChange(){
-        console.log("Checkbox change " + props.index);
+        console.log("Checkbox change " + item.id);
         setIsCompleted(!isCompleted);
     }
 
-    return <li key={props.index}>
+    return <li key={item.id}>
         <div className="flex w-full py-5 bg-base-100 border text-slate-600 text-sm leading-6 font-medium py-2 px-4 my-3 rounded-lg">
             <input type="checkbox"
                    checked={isCompleted}
@@ -34,9 +38,9 @@ function ToDoListItem(props: ToDoListItemProps) {
             />
 
             <div className="w-full text-lg mx-4">
-                <span className="text-left">{props.taskName}</span>
+                <span className="text-left">{item.title}</span>
                 <div className="text-sm">
-                    <span className="text-slate-400">{props.description}</span>
+                    <span className="text-slate-400">{item.description}</span>
                 </div>
             </div>
 

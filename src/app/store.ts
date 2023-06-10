@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import ToDoListReducer from '../features/ToDoListSlice'
+import ToDoListItemsReducer from '../features/ToDoItemsSlice'
 
 export const store = configureStore({
     reducer: {
-        ToDoListData: ToDoListReducer
+        ToDoListData: ToDoListReducer,
+        ToDoListItemsData: ToDoListItemsReducer,
     }
 })
 
