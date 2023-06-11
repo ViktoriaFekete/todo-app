@@ -7,7 +7,7 @@ const itemInitialState: ToDoListItemData[] = [{
     id: 0,
     deadline: new Date().toLocaleDateString(),
     description: "",
-    parentId: 0,
+    todolistId: 0,
 }]
 
 export const toDoListItemsSlice = createSlice({

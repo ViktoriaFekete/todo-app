@@ -9,5 +9,5 @@ export interface ToDoListItemData {
     id: number;
     deadline: string;
     description: string;
-    parentId: number;
+    todolistId: number;
 }

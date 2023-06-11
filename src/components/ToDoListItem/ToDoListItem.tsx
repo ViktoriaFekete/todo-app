@@ -1,32 +1,40 @@
 import React from 'react';
 import {removeTodoItem} from "../../features/ToDoItemsSlice.ts";
-import {deleteToDoItem} from "../../api/useToDoListItemsData.ts";
+import {deleteToDoItem, updateToDoItem} from "../../api/useToDoListItemsData.ts";
 import {useDispatch} from "react-redux";
 import {ToDoListItemData} from "../../types.ts";
-
+import {useParams} from "react-router-dom";
 
 function ToDoListItem(props: ToDoListItemData ) {
 
     const item: ToDoListItemData = props;
     const dispatch = useDispatch();
 
-    const ddl = new Date(item.deadline).toLocaleDateString();
     const [isCompleted, setIsCompleted] = React.useState(item.completed);
+    const deadline = new Date(item.deadline).toLocaleDateString();
+    const listId: string | undefined = useParams().listId;
 
+
+    React.useEffect(() => {
+        setIsCompleted(item.completed);
+    }, [item.completed]);
 
     function handleEdit(){
         console.log("Edit item " + item.id);
     }
 
     function handleDelete(){
-        console.log("Delete item " + item.id);
+        if (listId === undefined) throw new Error("listId is undefined");
+
         dispatch(removeTodoItem(item.id));
-        deleteToDoItem(item.id);
+        deleteToDoItem(listId, item.id);
     }
 
     function handleCheckboxChange(){
-        console.log("Checkbox change " + item.id);
+        if (listId === undefined) throw new Error("listId is undefined");
+
         setIsCompleted(!isCompleted);
+        updateToDoItem(listId, item.id, {completed: !isCompleted});
     }
 
     return <li key={item.id}>
@@ -46,7 +54,7 @@ function ToDoListItem(props: ToDoListItemData ) {
 
             <div className="w-1/3 text-base">
                 <span className="float-right material-symbols-outlined">event</span>
-                <span className="float-right"> {ddl}</span>
+                <span className="float-right"> {deadline}</span>
                 <div>
                     <button className="btn btn-ghost float-right rounded-full"
                     onClick={handleDelete}>

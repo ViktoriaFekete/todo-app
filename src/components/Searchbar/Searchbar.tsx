@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {filterToDoItems, getAllItems} from "../../api/useToDoListItemsData.ts";
+import {filterToDoItems} from "../../api/useToDoListItemsData.ts";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 import {ToDoListItemData} from "../../types.ts";
@@ -28,15 +28,15 @@ function Searchbar() {
     const searchListItems = async (term: string) : Promise<void> => {
         if (listId === undefined) throw new Error("listId is undefined");
 
-        const filteredItems: ToDoListItemData[] = await filterToDoItems("search", term);
-        const withinList: ToDoListItemData[] = filteredItems.filter((item: ToDoListItemData) => item.parentId === parseInt(listId));
-        dispatch(setTodoListItemData(withinList));
+        const filteredItems: ToDoListItemData[] = await filterToDoItems(listId, "search", term);
+        // const withinList: ToDoListItemData[] = filteredItems.filter((item: ToDoListItemData) => item.parentId === parseInt(listId));
+        dispatch(setTodoListItemData(filteredItems));
     }
 
     const showAll = async () : Promise<void> => {
         if (listId === undefined) throw new Error("listId is undefined");
 
-        const allItems: ToDoListItemData[] = await getAllItems(listId);
+        const allItems: ToDoListItemData[] = await filterToDoItems(listId);
         dispatch(setTodoListItemData(allItems));
     }
 

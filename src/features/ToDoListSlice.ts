@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import { ToDoListData } from '../types'
+import {RootState} from "../app/store.ts";
 
 const initialState: ToDoListData[] = [{
     id: 0,
@@ -26,5 +27,6 @@ export const toDoListSlice = createSlice({
 })
 
 export const { setTodoListData, addTodo , removeTodo} = toDoListSlice.actions;
+export const isTodoListFetched = (state: RootState) => state.ToDoListData[0].title !== initialState[0].title;
 
 export default toDoListSlice.reducer

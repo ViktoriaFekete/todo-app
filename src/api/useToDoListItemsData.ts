@@ -15,7 +15,7 @@ export const useToDoListItemsData = (todoListId: string|undefined) => {
         }
 
         (async () => {
-            const response =  await axios.get(buildToDoItemUrl("","parentId", todoListId).toString());
+            const response =  await axios.get(buildToDoItemUrl(todoListId).toString());
             const data: ToDoListItemData[] = await response.data;
             dispatch(setTodoListItemData(data));
         })();
@@ -26,9 +26,9 @@ export const useToDoListItemsData = (todoListId: string|undefined) => {
     },[]);
 }
 
-export const createToDoItem = async (todoItem: object) => {
+export const createToDoItem = async (listId: string, todoItem: object) => {
     try {
-        const response = await axios.post(buildToDoItemUrl().toString(), todoItem);
+        const response = await axios.post(buildToDoItemUrl(listId).toString(), todoItem);
         return response.data;
     }
     catch (error) {
@@ -36,9 +36,18 @@ export const createToDoItem = async (todoItem: object) => {
     }
 }
 
-export const deleteToDoItem = async (itemId: number) => {
+export const deleteToDoItem = async (listId: string, itemId: number) => {
     try {
-        const response = await axios.delete(buildToDoItemUrl(itemId.toString()).toString() );
+        await axios.delete(buildToDoItemUrl(listId, undefined, undefined, itemId.toString()).toString() );
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export const updateToDoItem = async (listId: string, itemId: number, todoItem: object) => {
+    try {
+        const response = await axios.put(buildToDoItemUrl(listId, undefined, undefined, itemId.toString()).toString(), todoItem);
         return response.data;
     }
     catch (error) {
@@ -46,12 +55,9 @@ export const deleteToDoItem = async (itemId: number) => {
     }
 }
 
-export const getAllItems = async (todoListId: string) => {
+export const filterToDoItems = async (todoListId:string, filter?: string, value?: string) => {
     try {
-        const url: URL = buildToDoItemUrl();
-        url.searchParams.append("parentId", todoListId);
-        const response = await axios.get(url.toString());
-
+        const response = await axios.get(buildToDoItemUrl(todoListId, filter, value).toString());
         return response.data;
     }
     catch (error) {
@@ -59,23 +65,13 @@ export const getAllItems = async (todoListId: string) => {
     }
 }
 
-export const filterToDoItems = async (filter: string, value: string) => {
-    try {
-        const url: URL = buildToDoItemUrl("", filter, value);
-        const response = await axios.get(url.toString());
-        console.log(url);
-        return response.data;
-    }
-    catch (error) {
-        console.log(error);
-    }
-}
+function buildToDoItemUrl(listId?: string, filter?:string|undefined, value?:string|undefined, itemId?: string): URL {
 
-function buildToDoItemUrl(param?: string, filter?:string, value?:string): URL {
-    const url: URL = new URL("https://" + PROJECT_TOKEN + ".mockapi.io/api/v1/todoitem");
-    if (param) {
-        url.pathname += "/" + param;
+    const url: URL = new URL("https://" + PROJECT_TOKEN + `.mockapi.io/api/v1/todolist/${listId}/todoitem`);
+    if (itemId) {
+        url.pathname += "/" + itemId;
     }
+
     if (filter && value) {
         url.searchParams.append(filter, value);
     }

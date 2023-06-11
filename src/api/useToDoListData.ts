@@ -45,7 +45,7 @@ export const deleteToDoList = async (todoListId: string) => {
 
 
 function buildToDoListsUrl(param?: string): URL {
-    const url: URL = new URL("https://" + PROJECT_TOKEN + ".mockapi.io/api/v1/todolists");
+    const url: URL = new URL("https://" + PROJECT_TOKEN + ".mockapi.io/api/v1/todolist");
     if (param) {
         url.pathname += "/" + param;
     }
