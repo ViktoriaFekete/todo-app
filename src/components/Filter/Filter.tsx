@@ -36,8 +36,8 @@ function Filter() {
     }
     return (
         <div>
-            <div className="dropdown dropdown-bottom">
-                <div className="join  float-right mx-10 my-5 rounded-full">
+            <div className="dropdown-bottom">
+                <div className="join float-right my-5 rounded-full">
                     <input className="join-item btn" type="radio" name="options" aria-label="All" checked={selectedOption === "All"} onChange={handleFilter}/>
                     <input className="join-item btn" type="radio" name="options" aria-label="Active" checked={selectedOption === "Active"} onChange={handleFilter}/>
                     <input className="join-item btn" type="radio" name="options" aria-label="Done" checked={selectedOption === "Done"} onChange={handleFilter}/>

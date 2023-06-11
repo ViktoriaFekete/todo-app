@@ -1,31 +1,20 @@
 import ToDoListItem from "../ToDoListItem/ToDoListItem.tsx";
 import {useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/store";
-import {createToDoItem,  useToDoListItemsData} from "../../api/useToDoListItemsData.ts";
+import {useToDoListItemsData} from "../../api/useToDoListItemsData.ts";
 import {ToDoListItemData} from "../../types.ts";
-import {addTodoItem} from "../../features/ToDoItemsSlice.ts";
 import Searchbar from "../Searchbar/Searchbar.tsx";
 import Filter from "../Filter/Filter.tsx";
 import {isTodoListFetched} from "../../features/ToDoListSlice.ts";
-
+import Form from "../Form";
 
 function ToDoList(): JSX.Element {
-    const dispatch = useDispatch();
     const listId: string | undefined = useParams().listId;
     useToDoListItemsData(listId);
 
     const items: ToDoListItemData[] = useSelector((state: RootState) => state.ToDoListItemsData);
     const isListFetched: boolean = useSelector(isTodoListFetched);
-
-    function addItem(){
-        if (listId === undefined) throw new Error("listId is undefined");
-        const newItem: ToDoListItemData = { title: "My new task", completed: false, description: "My new task description", deadline: "2023-07-05", todolistId: parseInt(listId), id: 0 };
-        dispatch(addTodoItem(newItem));
-        createToDoItem(listId, newItem);
-        // ID.showModal()
-    }
 
     return (
         <div>
@@ -53,8 +42,14 @@ function ToDoList(): JSX.Element {
                 </div>
             }
             <button className="btn btn-outline btn-secondary rounded-full float-left"
-                onClick={addItem}
+                onClick={() => {newtask.showModal()}}
             >+ Add item</button>
+
+            <dialog id="newtask" className="modal ">
+                <div className="modal-box">
+                    <Form/>
+                </div>
+            </dialog>
 
         </div>
     );

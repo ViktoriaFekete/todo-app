@@ -21,6 +21,7 @@ function ToDoListItem(props: ToDoListItemData ) {
 
     function handleEdit(){
         console.log("Edit item " + item.id);
+        newtask.showModal();
     }
 
     function handleDelete(){
@@ -45,17 +46,19 @@ function ToDoListItem(props: ToDoListItemData ) {
                    onChange={handleCheckboxChange}
             />
 
-            <div className="w-full text-lg mx-4">
-                <span className="text-left">{item.title}</span>
+            <div className="w-full mx-4">
+                <span className="text-left text-lg">{item.title}</span>
                 <div className="text-sm">
-                    <span className="text-slate-400">{item.description}</span>
+                    <span className="text-slate-400 text-md ">{item.description}</span>
                 </div>
             </div>
 
-            <div className="w-1/3 text-base">
-                <span className="float-right material-symbols-outlined">event</span>
-                <span className="float-right"> {deadline}</span>
+            <div className="md:w-1/3 w-2/4 text-base">
                 <div>
+                    <span className="float-right ml-1 material-symbols-outlined">event</span>
+                    <span className="float-right">{deadline}</span>
+                </div>
+                <div className="flex mt-2 mx-0 float-right">
                     <button className="btn btn-ghost float-right rounded-full"
                     onClick={handleDelete}>
                         <span className="material-symbols-outlined">delete</span>

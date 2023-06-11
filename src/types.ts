@@ -11,3 +11,9 @@ export interface ToDoListItemData {
     description: string;
     todolistId: number;
 }
+
+export interface ToDoListItemFormInputs {
+    title: string;
+    deadline: string;
+    description: string;
+}
