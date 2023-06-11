@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import { ToDoListData } from '../types'
 
 const initialState: ToDoListData[] = [{
@@ -10,13 +10,13 @@ export const toDoListSlice = createSlice({
     name: 'todolist',
     initialState,
     reducers: {
-        setTodoListData: (state,action) => {
+        setTodoListData: (_state, action: PayloadAction<ToDoListData[]>) => {
             return action.payload;
         },
-        addTodo: (state, action) => {
+        addTodo: (state, action: PayloadAction<ToDoListData>) => {
             state.push(action.payload);
         },
-        removeTodo: (state, action) => {
+        removeTodo: (state, action: PayloadAction<number>) => {
             const index = state.findIndex(todo => todo.id === action.payload);
             if (index !== -1) {
                 state.splice(index, 1);

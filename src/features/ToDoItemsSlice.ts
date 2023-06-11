@@ -1,7 +1,7 @@
 import {ToDoListItemData} from "../types.ts";
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-const initialState: ToDoListItemData[] = [{
+const itemInitialState: ToDoListItemData[] = [{
     title: "New task",
     completed: false,
     id: 0,
@@ -12,15 +12,15 @@ const initialState: ToDoListItemData[] = [{
 
 export const toDoListItemsSlice = createSlice({
     name: 'todolistitems',
-    initialState,
+    initialState: itemInitialState,
     reducers: {
-        setTodoListItemData: (state,action) => {
+        setTodoListItemData: (_state, action: PayloadAction<ToDoListItemData[]>) => {
             return action.payload;
         },
-        addTodoItem: (state, action) => {
+        addTodoItem: (state, action: PayloadAction<ToDoListItemData>) => {
             state.push(action.payload);
         },
-        removeTodoItem: (state, action) => {
+        removeTodoItem: (state, action: PayloadAction<number>) => {
             const index = state.findIndex(todo => todo.id === action.payload);
             if (index !== -1) {
                 state.splice(index, 1);

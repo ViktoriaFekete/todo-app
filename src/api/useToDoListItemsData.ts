@@ -21,7 +21,7 @@ export const useToDoListItemsData = (todoListId: string|undefined) => {
         })();
 
         return () => {
-            console.log("Unmount");
+            dispatch(setTodoListItemData([]));
         };
     },[]);
 }
@@ -39,6 +39,31 @@ export const createToDoItem = async (todoItem: object) => {
 export const deleteToDoItem = async (itemId: number) => {
     try {
         const response = await axios.delete(buildToDoItemUrl(itemId.toString()).toString() );
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export const getAllItems = async (todoListId: string) => {
+    try {
+        const url: URL = buildToDoItemUrl();
+        url.searchParams.append("parentId", todoListId);
+        const response = await axios.get(url.toString());
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export const filterToDoItems = async (filter: string, value: string) => {
+    try {
+        const url: URL = buildToDoItemUrl("", filter, value);
+        const response = await axios.get(url.toString());
+        console.log(url);
         return response.data;
     }
     catch (error) {
