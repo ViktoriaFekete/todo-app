@@ -3,8 +3,8 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../app/store";
 import {useToDoListItemsData} from "../../api/useToDoListItemsData.ts";
 import {ToDoListItemData} from "../../types.ts";
-import Searchbar from "../Searchbar/Searchbar.tsx";
-import Filter from "../Filter/Filter.tsx";
+import {Searchbar} from "../Searchbar";
+import {Filter} from "../Filter";
 import Form from "../Form";
 import {useParams} from "react-router-dom";
 
