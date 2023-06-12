@@ -54,7 +54,7 @@ function ToDoList(): JSX.Element {
                 </div>
             </dialog>
             <dialog id="modal" className="modal ">
-                <div className="modal-box text-center">
+                <div className="modal-box text-primary text-center">
                     <h2 className="text-lg">Do you want to see more super features?</h2>
                     <p className="my-5">Just hire me to implement them!</p>
                     <button className="btn btn-secondary btn-outline" onClick={handleButton}>Will do!</button>
