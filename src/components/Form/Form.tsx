@@ -20,7 +20,7 @@ function Form() {
 
     const newtask: HTMLDialogElement = document.getElementById("newtask") as HTMLDialogElement;
 
-    const onSubmit: SubmitHandler<ToDoListItemFormInputs> = async (data: ToDoListItemFormInputs): void => {
+    const onSubmit: SubmitHandler<ToDoListItemFormInputs> = async (data: ToDoListItemFormInputs) => {
 
         if (listId === undefined) throw new Error("listId is undefined");
 

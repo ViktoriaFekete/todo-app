@@ -15,6 +15,7 @@ export const useFormData = (toDoListItemFormSchema: ZodSchema,  onSubmitCallback
     const dispatch = useDispatch();
 
     const onSubmit: SubmitHandler<ToDoListItemFormInputs> = (data: ToDoListItemFormInputs) => {
+        // @ts-ignore
         dispatch(onSubmitCallback(data));
     };
 
