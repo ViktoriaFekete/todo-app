@@ -76,13 +76,13 @@ function Form() {
             </div>
 
             <div className="text-center">
-                <button className="btn btn-primary btn-outline my-5 mx-5 rounded-full w-2/6"
+                <button className="btn btn-primary btn-outline my-5 mx-1 sm:mx-5 rounded-full w-2/6"
                         type="button"
                         onClick={() => {newtask.close()}}>
                     Cancel
                 </button>
                 <button type="submit"
-                        className="btn btn-secondary my-5 mx-5 rounded-full w-2/6">
+                        className="btn btn-secondary my-5 mx-1 sm:mx-5 rounded-full w-2/6">
                     Save
                 </button>
             </div>

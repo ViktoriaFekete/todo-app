@@ -9,10 +9,12 @@ function App() {
     return (
         <div>
             <Navbar title={"What to do?"}/>
-            <Routes>
-               <Route path="/list/:listId" element={<ToDoList/>}/>
-                <Route path="/" element={<AllToDoLists/>}/>
-            </Routes>
+            <div className="w-11/12 m-auto">
+                <Routes>
+                   <Route path="/list/:listId" element={<ToDoList/>}/>
+                    <Route path="/" element={<AllToDoLists/>}/>
+                </Routes>
+            </div>
         </div>
   )
 }

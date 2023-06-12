@@ -45,7 +45,7 @@ function Searchbar() {
             <input type="text"
                    placeholder="Search"
                    onChange={e => setDebouncedTerm(e.target.value)}
-                   className="input input-bordered input-secondary text-black bg-transparent w-1/3 max-w-xs float-left my-5 rounded-full"
+                   className="input input-bordered input-secondary text-black bg-transparent w-full sm:w-1/3 float-left mt-5 md:my-5 rounded-full"
             />
         </div>
     );

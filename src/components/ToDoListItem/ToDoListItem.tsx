@@ -18,8 +18,8 @@ function ToDoListItem(props: ToDoListItemData ) {
     }, [item.completed]);
 
     function handleEdit(){
-        const newtask: HTMLDialogElement = document.getElementById("newtask") as HTMLDialogElement;
-        newtask.showModal();
+        const modal: HTMLDialogElement = document.getElementById("modal") as HTMLDialogElement;
+        modal.showModal();
     }
 
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>){
@@ -41,24 +41,24 @@ function ToDoListItem(props: ToDoListItemData ) {
     }
 
     return <li key={item.id}>
-        <div className="flex w-full py-5 bg-base-100 border text-slate-600 text-sm leading-6 font-medium py-2 px-4 my-3 rounded-lg">
+        <div className="flex flex-wrap sm:flex-nowrap w-full py-5 bg-base-100 border text-slate-600 text-sm leading-6 font-medium py-2 px-4 my-3 rounded-lg">
             <input type="checkbox"
                    checked={isCompleted}
                    className="checkbox checkbox-lg checkbox-secondary"
                    onChange={handleCheckboxChange}
             />
 
-            <div className="w-full mx-4">
-                <span className="text-left text-lg">{item.title}</span>
-                <div className="text-sm">
-                    <span className="text-slate-400 text-md ">{item.description}</span>
+            <div className="w-4/6 mx-4">
+                <span className="text-left text-md lg:text-lg">{item.title}</span>
+                <div className="">
+                    <span className="text-slate-400 text-sm md:text-md lg:text-lg">{item.description}</span>
                 </div>
             </div>
 
-            <div className="md:w-1/3 w-2/4 text-base">
+            <div className="mt-3 mx-10 sm: mx-0 sm:mt-0 w-full sm:w-2/6 text-base">
                 <div>
-                    <span className="float-right ml-1 material-symbols-outlined">event</span>
-                    <span className="float-right">{deadline}</span>
+                    <span className="float-left sm:float-right ml-1 material-symbols-outlined">event</span>
+                    <span className="float-left sm:float-right">{deadline}</span>
                 </div>
                 <div className="flex mt-2 mx-0 float-right">
                     <button className="btn btn-ghost float-right rounded-full"
