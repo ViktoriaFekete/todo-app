@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import {ToDoListData} from "../types.ts";
 import {setTodoListData} from "../features/ToDoListSlice.ts";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import { PROJECT_TOKEN } from "../secrets/constants.ts";
 
 export const useToDoListData = () => {
@@ -18,7 +18,7 @@ export const useToDoListData = () => {
         return () => {
             console.log("Unmount");
         };
-    }, []);
+    },[]);
 };
 
 export const createToDoList = async (todoList: object) => {

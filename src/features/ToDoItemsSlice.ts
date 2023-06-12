@@ -4,7 +4,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 const itemInitialState: ToDoListItemData[] = [{
     title: "New task",
     completed: false,
-    id: 0,
+    id: "0",
     deadline: new Date().toLocaleDateString(),
     description: "",
     todolistId: 0,
@@ -20,7 +20,7 @@ export const toDoListItemsSlice = createSlice({
         addTodoItem: (state, action: PayloadAction<ToDoListItemData>) => {
             state.push(action.payload);
         },
-        removeTodoItem: (state, action: PayloadAction<number>) => {
+        removeTodoItem: (state, action: PayloadAction<string>) => {
             const index = state.findIndex(todo => todo.id === action.payload);
             if (index !== -1) {
                 state.splice(index, 1);

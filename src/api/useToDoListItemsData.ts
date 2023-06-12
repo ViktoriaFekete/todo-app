@@ -1,15 +1,16 @@
-import { useEffect } from "react";
+import {useEffect} from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import {PROJECT_TOKEN} from "../secrets/constants.ts";
 import {ToDoListItemData} from "../types.ts";
 import {setTodoListItemData} from "../features/ToDoItemsSlice.ts";
+import {useParams} from "react-router-dom";
 
-export const useToDoListItemsData = (todoListId: string|undefined) => {
+export const useToDoListItemsData = () => {
     const dispatch = useDispatch();
+    const todoListId: string | undefined = useParams().listId;
 
     useEffect(() => {
-
         if (!todoListId) {
             return;
         }
@@ -36,18 +37,18 @@ export const createToDoItem = async (listId: string, todoItem: object) => {
     }
 }
 
-export const deleteToDoItem = async (listId: string, itemId: number) => {
+export const deleteToDoItem = async (listId: string, itemId: string) => {
     try {
-        await axios.delete(buildToDoItemUrl(listId, undefined, undefined, itemId.toString()).toString() );
+        await axios.delete(buildToDoItemUrl(listId, undefined, undefined, itemId).toString() );
     }
     catch (error) {
         console.log(error);
     }
 }
 
-export const updateToDoItem = async (listId: string, itemId: number, todoItem: object) => {
+export const updateToDoItem = async (listId: string, itemId: string, todoItem: object) => {
     try {
-        const response = await axios.put(buildToDoItemUrl(listId, undefined, undefined, itemId.toString()).toString(), todoItem);
+        const response = await axios.put(buildToDoItemUrl(listId, undefined, undefined, itemId).toString(), todoItem);
         return response.data;
     }
     catch (error) {

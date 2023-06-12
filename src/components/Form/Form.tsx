@@ -5,13 +5,22 @@ import {SubmitHandler} from "react-hook-form";
 import {addTodoItem} from "../../features/ToDoItemsSlice.ts";
 import {useParams} from "react-router-dom";
 import {createToDoItem} from "../../api/useToDoListItemsData.ts";
+import {z, ZodSchema} from "zod";
 
 function Form() {
 
     const dispatch = useDispatch();
     const listId: string | undefined = useParams().listId;
 
-    const onSubmit: SubmitHandler<ToDoListItemFormInputs> = (data: ToDoListItemFormInputs): void => {
+    const taskSchema: ZodSchema = z.object({
+        title: z.string().min(1, {message: "Title must be at least 1 character long"}).max(150, {message: "Title must be at most 150 characters long"}),
+        description: z.string().max(500, {message: "Description must be at most 500 characters long"}).optional(),
+        deadline: z.coerce.date().min(new Date(), {message: "Are you sure you can make it? :)"})
+    });
+
+    const newtask: HTMLDialogElement = document.getElementById("newtask") as HTMLDialogElement;
+
+    const onSubmit: SubmitHandler<ToDoListItemFormInputs> = async (data: ToDoListItemFormInputs): void => {
 
         if (listId === undefined) throw new Error("listId is undefined");
 
@@ -19,17 +28,21 @@ function Form() {
             title: data.title,
             completed: false,
             description: data.description,
-            deadline: data.deadline,
+            deadline: (data.deadline ? data.deadline : new Date()).toLocaleString(),
             todolistId: parseInt(listId),
-            id: 0
+            id: "0"
         }
+        taskSchema.parse(newItem);
+
+        const response = await createToDoItem(listId, newItem);
+        newItem.id = response.id;
         dispatch(addTodoItem(newItem));
-        createToDoItem(listId, newItem);
+
         newtask.close();
     }
 
     const { handleSubmit, register, errors} = useFormData(
-        'newTaskForm',
+        taskSchema,
         onSubmit
     );
 
@@ -42,14 +55,16 @@ function Form() {
                 <label className="label">
                     <span className="label-text">What do you need to do?</span>
                 </label>
-                <input type="text" placeholder="e.g. Check my emails" className="text-sm input input-bordered w-full"  {...register("title")} />
+                <input type="text" placeholder="e.g. Check my emails" className="text-sm input input-bordered w-full" {...register("title")} />
+                {errors.title?.message && <p className="text-error py-1 px-2 italic">{errors.title?.message}</p>}
             </div>
 
             <div className="form-control w-full">
                 <label className="label">
                     <span className="label-text">Due date</span>
                 </label>
-                <input type="date" placeholder="" className="text-sm input input-bordered w-full"  {...register("deadline")} />
+                <input type="date" className="text-sm input input-bordered w-full"  {...register("deadline")} />
+                {errors.deadline?.message && <p className="text-error py-1 px-2 italic">{errors.deadline?.message}</p>}
             </div>
 
             <div className="form-control w-full">
@@ -57,6 +72,7 @@ function Form() {
                     <span className="label-text">Description</span>
                 </label>
                 <textarea placeholder="Add some notes here..." className="textarea textarea-bordered w-full"  {...register("description")} />
+                {errors.description?.message && <p className="text-error py-1 italic">{errors.description?.message}</p>}
             </div>
 
             <div className="text-center">

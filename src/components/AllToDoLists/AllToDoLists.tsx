@@ -6,9 +6,9 @@ import {ToDoListData} from "../../types.ts";
 import {addTodo, removeTodo} from "../../features/ToDoListSlice.ts";
 
 function AllToDoLists() {
-    const dispatch = useDispatch();
-
     useToDoListData();
+
+    const dispatch = useDispatch();
     const allLists: ToDoListData[] = useSelector((state: RootState) => state.ToDoListData);
 
     function addList(){
@@ -36,7 +36,7 @@ function AllToDoLists() {
                     return (
                         <li key={list.id}>
                             <div className="flex w-full py-2 bg-base-100 border text-slate-600 text-sm leading-6 font-medium px-4 my-3 rounded-lg justify-between">
-                                <Link to={`list/${list.id}`} className="text-slate-600  hover:text-secondary place-self-center">List: {list.title}</Link>
+                                <Link to={`/list/${list.id}`} className="text-slate-600  hover:text-secondary place-self-center">List: {list.title}</Link>
                                 <button className="btn btn-ghost float-right rounded-full"
                                         onClick={handleDelete}>
                                     <span className="material-symbols-outlined" item-id={list.id}>delete</span>

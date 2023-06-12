@@ -9,26 +9,28 @@ function ToDoListItem(props: ToDoListItemData ) {
 
     const item: ToDoListItemData = props;
     const dispatch = useDispatch();
-
     const [isCompleted, setIsCompleted] = React.useState(item.completed);
     const deadline = new Date(item.deadline).toLocaleDateString();
     const listId: string | undefined = useParams().listId;
-
 
     React.useEffect(() => {
         setIsCompleted(item.completed);
     }, [item.completed]);
 
     function handleEdit(){
-        console.log("Edit item " + item.id);
+        const newtask: HTMLDialogElement = document.getElementById("newtask") as HTMLDialogElement;
         newtask.showModal();
     }
 
-    function handleDelete(){
+    function handleDelete(e: React.MouseEvent<HTMLButtonElement>){
         if (listId === undefined) throw new Error("listId is undefined");
+        const target: HTMLButtonElement = e.target as HTMLButtonElement;
+        const itemId: string | null = target.getAttribute("item-id");
 
-        dispatch(removeTodoItem(item.id));
-        deleteToDoItem(listId, item.id);
+        if (itemId === null) throw new Error("itemId is null");
+
+        deleteToDoItem(listId, itemId);
+        dispatch(removeTodoItem(itemId));
     }
 
     function handleCheckboxChange(){
@@ -61,11 +63,11 @@ function ToDoListItem(props: ToDoListItemData ) {
                 <div className="flex mt-2 mx-0 float-right">
                     <button className="btn btn-ghost float-right rounded-full"
                     onClick={handleDelete}>
-                        <span className="material-symbols-outlined">delete</span>
+                        <span className="material-symbols-outlined" item-id={item.id}>delete</span>
                     </button>
                     <button className="btn btn-ghost float-right rounded-full"
                         onClick={handleEdit}>
-                        <span className="material-symbols-outlined">edit</span>
+                        <span className="material-symbols-outlined" item-id={item.id}>edit</span>
                     </button>
                 </div>
             </div>

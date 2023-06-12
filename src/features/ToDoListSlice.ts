@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import { ToDoListData } from '../types'
+import {ToDoListData} from '../types'
 import {RootState} from "../app/store.ts";
 
 const initialState: ToDoListData[] = [{

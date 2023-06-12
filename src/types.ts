@@ -6,7 +6,7 @@ export interface ToDoListData {
 export interface ToDoListItemData {
     title: string;
     completed: boolean;
-    id: number;
+    id: string;
     deadline: string;
     description: string;
     todolistId: number;

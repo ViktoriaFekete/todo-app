@@ -7,11 +7,15 @@ import {useParams} from "react-router-dom";
 function Filter() {
 
     const [selectedOption, setSelectedOption] = useState("All");
+    const [isFilterActive, setIsFilterActive] = useState(false);
     const dispatch = useDispatch();
     const listId: string | undefined = useParams().listId;
 
     useEffect(() => {
+        if (!isFilterActive) return;
+
         if (listId === undefined) throw new Error("listId is undefined");
+
         let filter : string | undefined = undefined;
         let filterValue : string | undefined = undefined;
 
@@ -27,11 +31,12 @@ function Filter() {
             dispatch(setTodoListItemData(res));
         })
 
-    }, [selectedOption, listId])
+    }, [selectedOption])
 
     const handleFilter = (event: React.ChangeEvent<HTMLInputElement>):void => {
         const target = event.target as HTMLInputElement;
         const filter = target.getAttribute("aria-label");
+        setIsFilterActive(true);
         setSelectedOption(filter ? filter : "All");
     }
     return (

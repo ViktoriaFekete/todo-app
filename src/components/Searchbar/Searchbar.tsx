@@ -6,21 +6,22 @@ import {ToDoListItemData} from "../../types.ts";
 import {setTodoListItemData} from "../../features/ToDoItemsSlice.ts";
 
 function Searchbar() {
-    const [term, setTerm] = useState("");
+
+    const [term, setTerm] = useState("-");
     const [debouncedTerm, setDebouncedTerm] = useState(term);
     const dispatch = useDispatch();
     const listId: string | undefined = useParams().listId;
 
     useEffect(() => {
-        const timer = setTimeout(() => setTerm(debouncedTerm), 800);
+        const timer = setTimeout(() => setTerm(debouncedTerm), 1000);
         return () => clearTimeout(timer);
     }, [debouncedTerm]);
 
     useEffect(() => {
-        if (term !== ""){
+        if (term !== "" && term !== "-"){
             searchListItems(term);
         }
-        else {
+        else if (term === ""){
             showAll();
         }
     }, [term]);
@@ -29,7 +30,6 @@ function Searchbar() {
         if (listId === undefined) throw new Error("listId is undefined");
 
         const filteredItems: ToDoListItemData[] = await filterToDoItems(listId, "search", term);
-        // const withinList: ToDoListItemData[] = filteredItems.filter((item: ToDoListItemData) => item.parentId === parseInt(listId));
         dispatch(setTodoListItemData(filteredItems));
     }
 
