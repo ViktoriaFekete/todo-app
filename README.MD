@@ -12,3 +12,5 @@ This is a simple todo app with React and TypeScript. The app offers separate tod
 - daisyUI
 - Tailwind CSS
 - react-hook-form with zod validation 
+
+Time spent: 28h
